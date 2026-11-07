@@ -104,7 +104,7 @@ const MOODS = {
  */
 const SONGS = [
   // comfort — warm, low-pressure songs for tired or heavy moments
-  { id: 569214247, title: '平凡的一天', artist: '毛不易', album: '平凡的一天', tags: ['华语', '治愈', '日常', '慢'], valence: 58, arousal: 27, free: true },
+  { id: 569214247, title: '平凡的一天', artist: '毛不易', album: '平凡的一天', tags: ['华语', '治愈', '日常', '慢'], valence: 58, arousal: 27 },
   { id: 65538, title: '好久不见', artist: '陈奕迅', album: '认了吧', tags: ['华语', '怀旧', '温柔', '夜晚'], valence: 43, arousal: 24 },
   { id: 26598946, title: '山丘', artist: '李宗盛', album: '山丘', tags: ['华语', '怀旧', '人生', '慢'], valence: 47, arousal: 32 },
   { id: 28815250, title: '平凡之路', artist: '朴树', album: '猎户星座', tags: ['华语', '公路', '治愈', '坚持'], valence: 55, arousal: 44 },
@@ -126,8 +126,8 @@ const SONGS = [
 
   // release — angry / restless / need an outlet
   { id: 411314659, title: '山海', artist: '草东没有派对', album: '丑奴儿', tags: ['华语', '摇滚', '独立', '宣泄'], valence: 34, arousal: 82 },
-  { id: 386844, title: '杀死那个石家庄人', artist: '万能青年旅店', album: '万能青年旅店', tags: ['华语', '摇滚', '独立', '时代'], valence: 30, arousal: 70, free: true },
-  { id: 381825, title: '公路之歌', artist: '痛仰乐队', album: '不要停止我的音乐', tags: ['华语', '摇滚', '公路', '自由'], valence: 52, arousal: 72, free: true },
+  { id: 386844, title: '杀死那个石家庄人', artist: '万能青年旅店', album: '万能青年旅店', tags: ['华语', '摇滚', '独立', '时代'], valence: 30, arousal: 70 },
+  { id: 381825, title: '公路之歌', artist: '痛仰乐队', album: '不要停止我的音乐', tags: ['华语', '摇滚', '公路', '自由'], valence: 52, arousal: 72 },
   { id: 66842, title: '十年', artist: '陈奕迅', album: '黑·白·灰', tags: ['华语', '怀旧', '情歌', '慢'], valence: 42, arousal: 28 },
   { id: 108914, title: '江南', artist: '林俊杰', album: '第二天堂', tags: ['华语', '流行', 'R&B', '怀旧'], valence: 64, arousal: 48 },
   { id: 1360465542, title: '天黑黑', artist: '孙燕姿', album: '孙燕姿', tags: ['华语', '流行', '怀旧', '成长'], valence: 55, arousal: 38 },
@@ -135,8 +135,8 @@ const SONGS = [
   { id: 139357, title: '生如夏花', artist: '朴树', album: '生如夏花', tags: ['华语', '民谣', '公路', '生命'], valence: 62, arousal: 50 },
   { id: 436514312, title: '成都', artist: '赵雷', album: '无法长大', tags: ['华语', '民谣', '城市', '慢'], valence: 58, arousal: 30 },
   { id: 421423806, title: '小半', artist: '陈粒', album: '小梦大半', tags: ['华语', '独立', '民谣', '暗恋'], valence: 46, arousal: 35 },
-  { id: 417596830, title: '美好事物', artist: '房东的猫', album: '美好事物', tags: ['华语', '民谣', '治愈', '日常'], valence: 62, arousal: 32, free: true },
-  { id: 569200213, title: '消愁', artist: '毛不易', album: '平凡的一天', tags: ['华语', '民谣', '孤独', '夜晚'], valence: 40, arousal: 28, free: true },
+  { id: 417596830, title: '美好事物', artist: '房东的猫', album: '美好事物', tags: ['华语', '民谣', '治愈', '日常'], valence: 62, arousal: 32 },
+  { id: 569200213, title: '消愁', artist: '毛不易', album: '平凡的一天', tags: ['华语', '民谣', '孤独', '夜晚'], valence: 40, arousal: 28 },
   { id: 109998, title: '贝加尔湖畔', artist: '李健', album: '依然', tags: ['华语', '民谣', '安静', '湖'], valence: 60, arousal: 22 },
   { id: 29713754, title: '匆匆那年', artist: '王菲', album: '匆匆那年', tags: ['华语', '怀旧', '青春', '慢'], valence: 48, arousal: 28 },
   { id: 449818741, title: '光年之外', artist: 'G.E.M.邓紫棋', album: '光年之外', tags: ['华语', '流行', '力量', '太空'], valence: 66, arousal: 62 },
@@ -563,7 +563,7 @@ async function resolveTopicSongs(ctx, semantic, state) {
             artist: (item.artists ?? []).map((artist) => artist.name).filter(Boolean).join(' / '),
             album: String(item.album?.name ?? ''),
             durationSec: Math.max(30, Math.round(Number(item.duration ?? 240000) / 1000)),
-            free: item.fee === 8,
+            free: item.fee === 0,
             tags: ['话题', topic.name],
             valence: 55,
             arousal: 52,
@@ -632,7 +632,7 @@ async function fetchDiscoveryPlaylist(playlistId, mood) {
         artist: (item.artists ?? []).map((artist) => artist.name).filter(Boolean).join(' / '),
         album: String(item.album?.name ?? ''),
         durationSec: Math.max(30, Math.round(Number(item.duration ?? 240000) / 1000)),
-        free: item.fee === 0 || item.fee === 8,
+        free: item.fee === 0,
         tags: ['新发现', mood.label],
         valence: mood.valence,
         arousal: mood.arousal,
@@ -1886,6 +1886,7 @@ export function apply(ctx) {
       lastCueAt: null,
       queueDurationSec: Math.round(durationMs / 1000),
       previewBatch,
+      lastSnapStatus: 2,
       status: data.app?.launched === false ? 'error' : 'playing',
     }
     saveState(fresh)
@@ -1931,6 +1932,7 @@ export function apply(ctx) {
       fresh.radio.lastUserSeq = data.conversation.lastUserSeq ?? fresh.radio.lastUserSeq
       fresh.radio.queueDurationSec = Math.round(durationMs / 1000)
       fresh.radio.previewBatch = data.queuePreview === true
+      fresh.radio.lastSnapStatus = 2
       fresh.radio.status = data.app?.launched === false ? 'error' : 'playing'
       saveState(fresh)
     } catch {
@@ -1956,9 +1958,27 @@ export function apply(ctx) {
     if (r.autoRefill === false) return
     const snap = await playbackSnapshot(ctx)
     if (snap) {
+      const previousStatus = r.lastSnapStatus
+      const fresh = loadState()
+      if (fresh.radio) {
+        fresh.radio.lastSnapStatus = snap.status
+        saveState(fresh)
+      }
+      // NetEase store values: 2 = playing, 1 = paused, 0 = stopped/empty.
+      if (snap.status === 2) {
+        if ((snap.remaining ?? snap.queueLength ?? 0) <= 0) await refillRadio(ctx, true)
+        return
+      }
       if (snap.status === 1) {
-        // Preview batches end in a paused state. Only refill when the queue is
-        // actually exhausted; a user pausing halfway must be respected.
+        // A VIP preview ends by pausing while the rest of the queue still
+        // exists. Refill only for preview batches; an intentional pause on a
+        // normal batch is left alone.
+        const stalledPreview = r.previewBatch === true
+          && Date.now() - Number(r.lastRefillAt ?? 0) > 45_000
+        if (r.previewBatch === true && (previousStatus === 2 || stalledPreview)) {
+          await refillRadio(ctx, true)
+          return
+        }
         if ((snap.remaining ?? snap.queueLength ?? 0) <= 0) await refillRadio(ctx, true)
         return
       }
