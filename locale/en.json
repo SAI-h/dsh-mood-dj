@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Mood radio",
+    "description": "Reads the current conversation's mood, opens NetEase Cloud Music, and plays a song for the moment. With no clear mood, it follows your listening history, profile, and the previous track."
+  }
+}

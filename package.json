@@ -1,0 +1,54 @@
+{
+  "name": "mood-dj",
+  "version": "0.1.0",
+  "description": "DSH 心绪电台：读取当前会话的情绪与话题，在网易云音乐后台播放匹配歌曲并自动补歌。",
+  "license": "MIT",
+  "author": "dsh-mood-dj contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SAI-h/dsh-mood-dj.git"
+  },
+  "homepage": "https://github.com/SAI-h/dsh-mood-dj#readme",
+  "bugs": {
+    "url": "https://github.com/SAI-h/dsh-mood-dj/issues"
+  },
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "netease-music",
+    "music",
+    "cordis"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "DESIGN.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
